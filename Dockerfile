@@ -6,7 +6,7 @@ WORKDIR /aa
 ENV RELEASE_FILE=archappl_v1.1.0.tar.gz
 ENV RELEASE=1.1.0
 RUN curl -OL https://github.com/slacmshankar/epicsarchiverap/releases/download/${RELEASE}/${RELEASE_FILE}
-RUN tar -xfz ${RELEASE_FILE} && rm ${RELEASE_FILE}
+RUN tar xvfz ${RELEASE_FILE} && rm ${RELEASE_FILE}
 RUN ls
 RUN for app in engine mgmt etl retrieval; do \
    echo "extracting $app.war"; \
