@@ -3,9 +3,8 @@ FROM alpine AS download-extract
 RUN apk update && apk add tar unzip curl
 
 WORKDIR /aa
-ENV RELEASE=v0.0.1_SNAPSHOT_13-Nov-2019
-ENV RELEASE_FILE=archappl_v0.0.1_SNAPSHOT_13-November-2019T15-45-42.tar.gz
-RUN curl -OL https://github.com/slacmshankar/epicsarchiverap/releases/download/${RELEASE}/${RELEASE_FILE}
+ENV RELEASE_FILE=archappl_v1.1.0.tar.gz
+RUN curl -OL https://github.com/slacmshankar/epicsarchiverap/releases/${RELEASE_FILE}
 RUN tar -xf ${RELEASE_FILE} && rm ${RELEASE_FILE}
 RUN ls
 RUN for app in engine mgmt etl retrieval; do \
@@ -15,7 +14,7 @@ RUN for app in engine mgmt etl retrieval; do \
 RUN ls *
 
 
-FROM tomcat:9.0.36-jdk14-openjdk-slim-buster
+FROM tomcat:9.0.85-jdk17-temurin-jammy
 
 SHELL ["/bin/bash", "-c"]
 
