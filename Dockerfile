@@ -5,7 +5,7 @@ RUN apk update && apk add tar unzip curl
 WORKDIR /aa
 ARG REVISION=1.1.0
 ENV RELEASE_FILE=archappl_v${REVISION}.tar.gz
-RUN curl -OL https://github.com/slacmshankar/epicsarchiverap/releases/download/${RELEASE}/${RELEASE_FILE}
+RUN curl -OL https://github.com/slacmshankar/epicsarchiverap/releases/download/${REVISION}/${RELEASE_FILE}
 RUN tar xvfz ${RELEASE_FILE} && rm ${RELEASE_FILE}
 RUN ls
 RUN for app in engine mgmt etl retrieval; do \
