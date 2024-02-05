@@ -3,8 +3,8 @@ FROM alpine AS download-extract
 RUN apk update && apk add tar unzip curl
 
 WORKDIR /aa
-ENV RELEASE_FILE=archappl_v1.1.0.tar.gz
-ENV RELEASE=1.1.0
+ARG REVISION=1.1.0
+ENV RELEASE_FILE=archappl_v${REVISION}.tar.gz
 RUN curl -OL https://github.com/slacmshankar/epicsarchiverap/releases/download/${RELEASE}/${RELEASE_FILE}
 RUN tar xvfz ${RELEASE_FILE} && rm ${RELEASE_FILE}
 RUN ls
