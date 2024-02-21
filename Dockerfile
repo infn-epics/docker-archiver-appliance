@@ -16,7 +16,7 @@ RUN ls *
 
 
 FROM tomcat:9.0.85-jdk17-temurin-jammy
-
+ARG MYSQL_CONNECTOR=8.0.23
 SHELL ["/bin/bash", "-c"]
 
 COPY --from=download-extract /aa/NOTICE /aa/LICENSE /aa/Apache_2.0_License.txt /aa/RELEASE_NOTES /
@@ -30,7 +30,9 @@ COPY --from=download-extract /aa/*.war /usr/local/tomcat/webapps/
 #COPY --from=download-extract /aa/mgmt /usr/local/tomcat/webapps/mgmt
 #COPY --from=download-extract /aa/etl /usr/local/tomcat/webapps/etl
 #COPY --from=download-extract /aa/retrieval /usr/local/tomcat/webapps/retrieval
+RUN wget -O /usr/local/tomcat/lib/mysql-connector-java-${MYSQL_CONNECTOR}.jar https://repo1.maven.org/maven2/mysql/mysql-connector-java/${MYSQL_CONNECTOR}/mysql-connector-java-${MYSQL_CONNECTOR}.jar
 
+# Copy the MySQL Connector/J JAR file to Tomcat's lib directory
 COPY etc/archappl/appliances.xml /etc/archappl/
 COPY etc/archappl/archappl.properties /etc/archappl/
 COPY etc/archappl/policies.py /etc/archappl/
@@ -58,7 +60,7 @@ ENV ARCHAPPL_PERSISTENCE_LAYER=org.epics.archiverappliance.config.persistence.In
 ENV ARCHAPPL_SHORT_TERM_FOLDER=/storage/sts
 ENV ARCHAPPL_MEDIUM_TERM_FOLDER=/storage/mts
 ENV ARCHAPPL_LONG_TERM_FOLDER=/storage/lts
-ENV EPICS_CA_AUTO_ADDR_LIST=yes
+ENV EPICS_CA_AUTO_ADDR_LIST=NO
 ENV EPICS_CA_ADDR_LIST=
 
 EXPOSE 17665
