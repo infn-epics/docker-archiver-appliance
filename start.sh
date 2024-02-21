@@ -1,0 +1,44 @@
+#!/bin/bash
+username="archappl"
+password="archappl"
+if [ -n "$MYSQL_USER" ];
+    username=$MYSQL_USER
+fi
+if [ -n "$MYSQL_PASS" ];
+    password=$MYSQL_PASS
+fi
+
+if [ -n "$MYSQL_URL" ];then
+    echo "Enabling $MYSQL_URL"
+    echo "<?xml version="1.0" encoding="UTF-8"?>" > /usr/local/tomcat/conf/context.xml
+    echo "<Context>" >> /usr/local/tomcat/conf/context.xml
+    echo "<WatchedResource>WEB-INF/web.xml</WatchedResource>" >> /usr/local/tomcat/conf/context.xml
+    echo "<WatchedResource>WEB-INF/tomcat-web.xml</WatchedResource>" >> /usr/local/tomcat/conf/context.xml
+    echo "<WatchedResource>\${catalina.base}/conf/web.xml</WatchedResource>" >> /usr/local/tomcat/conf/context.xml
+    echo '<Resource   name="jdbc/archappl"
+      auth="Container"
+      type="javax.sql.DataSource"
+      factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
+      testWhileIdle="true"
+      testOnBorrow="true"
+      testOnReturn="false"
+      validationQuery="SELECT 1"
+      validationInterval="30000"
+      timeBetweenEvictionRunsMillis="30000"
+      maxActive="10"
+      minIdle="2"
+      maxWait="10000"
+      initialSize="2"
+      removeAbandonedTimeout="60"
+      removeAbandoned="true"
+      logAbandoned="true"
+      minEvictableIdleTimeMillis="30000"
+      jmxEnabled="true"
+      driverClassName="com.mysql.jdbc.Driver"' >>/usr/local/tomcat/conf/context.xml
+      echo "username=\"$user\"" >>/usr/local/tomcat/conf/context.xml
+      echo "password=\"$password\"" >>/usr/local/tomcat/conf/context.xml
+      echo "url=\"$MYSQL_URL\"" >>/usr/local/tomcat/conf/context.xml
+      echo "/>" >>/usr/local/tomcat/conf/context.xml
+    echo "</Context>" >> /usr/local/tomcat/conf/context.xml
+fi
+catalina.sh run
