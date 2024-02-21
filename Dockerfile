@@ -64,5 +64,5 @@ ENV EPICS_CA_AUTO_ADDR_LIST=NO
 ENV EPICS_CA_ADDR_LIST=
 
 EXPOSE 17665
-COPY start.sh .
-CMD ["start.sh"]
+COPY start.sh /tmp
+CMD ["/tmp/start.sh"]
