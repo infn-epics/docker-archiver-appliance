@@ -1,13 +1,13 @@
 #!/bin/bash
-username="archappl"
-password="archappl"
+username="arcappl"
+password="arcappl"
 if [ -n "$MYSQL_USER" ];
     username=$MYSQL_USER
 fi
 if [ -n "$MYSQL_PASS" ];
     password=$MYSQL_PASS
 fi
-
+echo "* Server MYSQL=$MYSQL_URL ** "
 if [ -n "$MYSQL_URL" ];then
     echo "Enabling $MYSQL_URL"
     echo "<?xml version="1.0" encoding="UTF-8"?>" > /usr/local/tomcat/conf/context.xml
@@ -41,4 +41,6 @@ if [ -n "$MYSQL_URL" ];then
       echo "/>" >>/usr/local/tomcat/conf/context.xml
     echo "</Context>" >> /usr/local/tomcat/conf/context.xml
 fi
+echo "* Starting Catalina "
+
 catalina.sh run
