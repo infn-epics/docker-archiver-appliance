@@ -1,10 +1,10 @@
 #!/bin/bash
 username="arcappl"
 password="arcappl"
-if [ -n "$MYSQL_USER" ];
+if [ -n "$MYSQL_USER" ];then
     username=$MYSQL_USER
 fi
-if [ -n "$MYSQL_PASS" ];
+if [ -n "$MYSQL_PASS" ];then
     password=$MYSQL_PASS
 fi
 echo "* Server MYSQL=$MYSQL_URL ** "
