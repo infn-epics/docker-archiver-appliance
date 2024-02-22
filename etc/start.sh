@@ -10,13 +10,13 @@ fi
 echo "* Server MYSQL=$MYSQL_URL ** "
 if [ -n "$MYSQL_URL" ];then
     echo "Enabling $MYSQL_URL"
-    echo "<?xml version="1.0" encoding="UTF-8"?>" > /usr/local/tomcat/conf/context.xml
-    echo "<Context>" >> /usr/local/tomcat/conf/context.xml
-    echo "<WatchedResource>WEB-INF/web.xml</WatchedResource>" >> /usr/local/tomcat/conf/context.xml
-    echo "<WatchedResource>WEB-INF/tomcat-web.xml</WatchedResource>" >> /usr/local/tomcat/conf/context.xml
-    echo "<WatchedResource>\${catalina.base}/conf/web.xml</WatchedResource>" >> /usr/local/tomcat/conf/context.xml
-    echo '<Resource   name="jdbc/archappl"
-      auth="Container"
+    echo '<?xml version="1.0" encoding="UTF-8"?>
+    <Context>
+    <WatchedResource>WEB-INF/web.xml</WatchedResource>
+    <WatchedResource>WEB-INF/tomcat-web.xml</WatchedResource>
+    <WatchedResource>${catalina.base}/conf/web.xml</WatchedResource>
+    <Resource name="jdbc/archappl"
+    auth="Container"
       type="javax.sql.DataSource"
       factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
       testWhileIdle="true"
@@ -34,7 +34,7 @@ if [ -n "$MYSQL_URL" ];then
       logAbandoned="true"
       minEvictableIdleTimeMillis="30000"
       jmxEnabled="true"
-      driverClassName="com.mysql.jdbc.Driver"' >>/usr/local/tomcat/conf/context.xml
+      driverClassName="com.mysql.jdbc.Driver"' >/usr/local/tomcat/conf/context.xml
       echo "username=\"$user\"" >>/usr/local/tomcat/conf/context.xml
       echo "password=\"$password\"" >>/usr/local/tomcat/conf/context.xml
       echo "url=\"$MYSQL_URL\"" >>/usr/local/tomcat/conf/context.xml
