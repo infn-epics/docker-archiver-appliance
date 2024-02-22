@@ -8,6 +8,8 @@ ENV RELEASE_FILE=archappl_v${REVISION}.tar.gz
 RUN curl -OL https://github.com/slacmshankar/epicsarchiverap/releases/download/${REVISION}/${RELEASE_FILE}
 RUN tar xvfz ${RELEASE_FILE} && rm ${RELEASE_FILE}
 RUN ls
+COPY etc/labLogo.png epicsarchiverap/src/main/org/epics/archiverappliance/staticcontent/img/labLogo.png
+COPY etc/labLogo2.png epicsarchiverap/src/main/org/epics/archiverappliance/staticcontent/img/labLogo2.png
 RUN for app in engine mgmt etl retrieval; do \
    echo "extracting $app.war"; \
    unzip -q $app.war -d $app; \
