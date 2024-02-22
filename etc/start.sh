@@ -35,7 +35,7 @@ if [ -n "$MYSQL_URL" ];then
       minEvictableIdleTimeMillis="30000"
       jmxEnabled="true"
       driverClassName="com.mysql.jdbc.Driver"' >/usr/local/tomcat/conf/context.xml
-      echo "username=\"$user\"" >>/usr/local/tomcat/conf/context.xml
+      echo "username=\"$username\"" >>/usr/local/tomcat/conf/context.xml
       echo "password=\"$password\"" >>/usr/local/tomcat/conf/context.xml
       echo "url=\"$MYSQL_URL\"" >>/usr/local/tomcat/conf/context.xml
       echo "/>" >>/usr/local/tomcat/conf/context.xml
