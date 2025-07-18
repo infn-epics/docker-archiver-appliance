@@ -5,6 +5,7 @@ RUN apk update && apk add tar unzip curl
 WORKDIR /aa
 ARG REVISION=2.0.10
 ENV RELEASE_FILE=archappl_v${REVISION}.tar.gz
+
 RUN curl -OL https://github.com/archiver-appliance/epicsarchiverap/releases/download/${REVISION}/${RELEASE_FILE}
 RUN tar xvfz ${RELEASE_FILE} && rm ${RELEASE_FILE}
 RUN ls
@@ -21,7 +22,7 @@ FROM tomcat:9.0.85-jdk21-temurin-jammy
 ARG MYSQL_CONNECTOR=8.0.23
 SHELL ["/bin/bash", "-c"]
 
-COPY --from=download-extract /aa/NOTICE /aa/LICENSE /aa/Apache_2.0_License.txt /aa/RELEASE_NOTES /
+# COPY --from=download-extract /aa/NOTICE /aa/LICENSE /aa/Apache_2.0_License.txt /aa/RELEASE_NOTES /
 
 COPY --from=download-extract /aa/*.war /usr/local/tomcat/webapps/
 # ^ above: put the compressed web application resource (WAR) files into the webapps folder.
