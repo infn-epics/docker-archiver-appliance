@@ -3,9 +3,9 @@ FROM alpine AS download-extract
 RUN apk update && apk add tar unzip curl
 
 WORKDIR /aa
-ARG REVISION=1.1.0
+ARG REVISION=2.0.10
 ENV RELEASE_FILE=archappl_v${REVISION}.tar.gz
-RUN curl -OL https://github.com/slacmshankar/epicsarchiverap/releases/download/${REVISION}/${RELEASE_FILE}
+RUN curl -OL https://github.com/archiver-appliance/epicsarchiverap/releases/download/${REVISION}/${RELEASE_FILE}
 RUN tar xvfz ${RELEASE_FILE} && rm ${RELEASE_FILE}
 RUN ls
 COPY etc/labLogo.png epicsarchiverap/src/main/org/epics/archiverappliance/staticcontent/img/labLogo.png
@@ -17,7 +17,7 @@ RUN for app in engine mgmt etl retrieval; do \
 RUN ls *
 
 
-FROM tomcat:9.0.85-jdk17-temurin-jammy
+FROM tomcat:9.0.85-jdk21-temurin-jammy
 ARG MYSQL_CONNECTOR=8.0.23
 SHELL ["/bin/bash", "-c"]
 
